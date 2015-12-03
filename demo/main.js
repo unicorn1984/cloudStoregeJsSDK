@@ -3,25 +3,23 @@
 /*global FileProgress */
 /*global hljs */
 function login(){
-    ServyouCloub.auth({username:'admin',password:'123'});
+    servyouCloud.auth({userId:'admin',password:'123'});
 
 
 }
 
-function getToken(){
-    alert(ServyouCloub.getToken());
-}
+
 
 $(function() {
 
     var globalConfig = {
+        //global
         userId:'admin',
         password:'123',
-        domain:''
+        domain:'http://localhost:8080/sfs/',
+        token_url:'sfs/login',
 
-    }
-
-    var uploadConfig = {
+        //upload
         runtimes: 'html5,flash,html4',
         browse_button: 'pickfiles',
         container: 'container',
@@ -30,15 +28,25 @@ $(function() {
         flash_swf_url: 'lib/plupload/Moxie.swf',
         dragdrop: true,
         chunk_size: '4mb',
-        uptoken_url: $('#uptoken_url').val(),
-        domain: $('#domain').val(),
+        upload_url:'sfs/addFile',   //上传文件路径
         get_new_uptoken: false,
         auto_start: true,
+        multi_selection: false,
         init: {
-
+            auth_success:function(data){
+                $('#login-info').text(data.token);
+                $('#token-area').show();
+            },
+            auth_error:function(msg){
+                alert('授权失败');
+            }
         }
+
     }
-    window.servyouCloub = new ServyouCloubJsSDK(globalConfig);
+
+
+    window.servyouCloud = new ServyouCloudJsSDK(globalConfig);
+    var uploader = servyouCloud.uploader();
 
 
 

@@ -14,14 +14,22 @@
     <script type="text/javascript" src="main.js"></script>
 </head>
 <body>
-domain:<input type="text" id="domain" value="http://10.212.132.4:9000/sfs/addFile">
-uptoken_url:<input type="text" id="uptoken_url" value="http://10.212.132.4:8001/sfs/login?username=admin&password=123">
-
+<fieldset>
+    <legend>权限验证</legend>
+    <input type="text" name="admin" value="admin"/><input type="text" name="password" value="123">
+    <button onclick="login()">登陆</button>
+    <br>   <br>
+    <div id="token-area" style="display: none;"><span style="font-weight: bold;">授权成功，token为:</span><span id="login-info"></span></div>
+</fieldset>
+<br><br>
+<fieldset>
+    <legend>文件上传</legend>
 <div id="container">
     <a class="btn btn-default btn-lg " id="pickfiles" href="#">
         <i class="glyphicon glyphicon-plus"></i>
         <span>选择文件</span>
     </a>
 </div>
+    </fieldset>
 </body>
 </html>
