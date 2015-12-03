@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ServyouCloud</title>
+    <link rel="stylesheet" href="lib/highlight/highlight.css">
+    <link rel="stylesheet" href="../src/style.css">
+    <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="lib/plupload/plupload.full.min.js"></script>
+    <script type="text/javascript" src="lib/plupload/i18n/zh_CN.js"></script>
+    <script type="text/javascript" src="lib/highlight/highlight.js"></script>
+    <script type="text/javascript" src="../src/FileProgress.js"></script>
+    <script type="text/javascript" src="../src/servyouCloub.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+domain:<input type="text" id="domain" value="http://10.212.132.4:9000/sfs/addFile">
+uptoken_url:<input type="text" id="uptoken_url" value="http://10.212.132.4:8001/sfs/login?username=admin&password=123">
+
+<div id="container">
+    <a class="btn btn-default btn-lg " id="pickfiles" href="#">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>选择文件</span>
+    </a>
+</div>
+</body>
+</html>
