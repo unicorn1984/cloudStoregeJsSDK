@@ -34,7 +34,7 @@ ServyouCloudJsSDK.prototype = {
         }
     },
 
-    auth: function (option) {
+    auth: function (option,success,error) {
         var that = this;
         $.ajax({
             url: this.config.domain + this.config.token_url,
@@ -42,14 +42,14 @@ ServyouCloudJsSDK.prototype = {
             method: 'POST',
             success: function (data, textStatus, jqXHR) {
                 if (data === "") {
-                    that.config.init.auth_error();
+                    error();
                     return;
                 }
                 that.token = jqXHR.getResponseHeader("token");
-                that.config.init.auth_success({token: that.token});
+                success({token: that.token});
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                that.config.init.auth_error();
+                error();
             }
         })
     },
@@ -75,16 +75,6 @@ ServyouCloudJsSDK.prototype = {
 
 
         var uploader = new plupload.Uploader(option);
-
-
-        uploader.bind('FilesAdded', function (up, files) {
-            var auto_start = up.getOption && up.getOption('auto_start');
-            auto_start = auto_start || (up.settings && up.settings.auto_start);
-            if (auto_start) {
-                    up.start();
-            }
-
-        });
         uploader.bind('BeforeUpload', function (up, file) {
             if (!that.token)
                 throw 'token is required!';
@@ -96,6 +86,7 @@ ServyouCloudJsSDK.prototype = {
                 }
             });
         })
+
         uploader.init();
 
 
@@ -130,6 +121,12 @@ ServyouCloudJsSDK.prototype = {
             }
         })
         return returnList;
+    },
+    download:function(fileId){
+         var url = this.config.domain+this.config.down_url
+         var data = '?requestId=sfs/downloadObject&token='+this.token+'&userId='+this.config.userId+'&fileId='+fileId;
+         url = url + data;
+         window.open(url);
     }
 }
 

@@ -30,9 +30,12 @@
             <span>选择文件</span>
         </a>
 
-        <div>
+        <div id="filequeue">
+            <ul>
 
+            </ul>
         </div>
+        <span id="console"></span>
     </div>
 </fieldset>
 <br><br>
@@ -40,12 +43,12 @@
     <legend>文件信息</legend>
     <table width="100%">
         <tr>
-            <td width="20%">
+            <td width="5%">
                 <div></div>
             </td>
             <td>
                 <div>
-                    <table id="file-list" class="list-table"><tr><td>文件ID</td><td>文件名称</td><td>文件大小</td><td>修改时间</td></tr></table>
+                    <table id="file-list" class="list-table"><tr><td>文件ID</td><td>文件名称</td><td>文件大小</td><td>修改时间</td><td>url</td><td>类型</td></tr></table>
                 </div>
             </td>
         </tr>
