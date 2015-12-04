@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <title>ServyouCloud</title>
     <link rel="stylesheet" href="lib/highlight/highlight.css">
-    <link rel="stylesheet" href="../src/style.css">
+    <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="lib/plupload/plupload.full.min.js"></script>
     <script type="text/javascript" src="lib/plupload/i18n/zh_CN.js"></script>
-    <script type="text/javascript" src="lib/highlight/highlight.js"></script>
-    <script type="text/javascript" src="../src/FileProgress.js"></script>
     <script type="text/javascript" src="../src/servyouCloub.js"></script>
     <script type="text/javascript" src="main.js"></script>
 </head>
@@ -18,18 +16,41 @@
     <legend>权限验证</legend>
     <input type="text" name="admin" value="admin"/><input type="text" name="password" value="123">
     <button onclick="login()">登陆</button>
-    <br>   <br>
-    <div id="token-area" style="display: none;"><span style="font-weight: bold;">授权成功，token为:</span><span id="login-info"></span></div>
+    <br> <br>
+
+    <div id="token-area" style="display: none;"><span style="font-weight: bold;">授权成功，token为:</span><span
+            id="login-info"></span></div>
 </fieldset>
 <br><br>
 <fieldset>
     <legend>文件上传</legend>
-<div id="container">
-    <a class="btn btn-default btn-lg " id="pickfiles" href="#">
-        <i class="glyphicon glyphicon-plus"></i>
-        <span>选择文件</span>
-    </a>
-</div>
-    </fieldset>
+    <div id="container">
+        <a class="btn btn-default btn-lg " id="pickfiles" href="#">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>选择文件</span>
+        </a>
+
+        <div>
+
+        </div>
+    </div>
+</fieldset>
+<br><br>
+<fieldset>
+    <legend>文件信息</legend>
+    <table width="100%">
+        <tr>
+            <td width="20%">
+                <div></div>
+            </td>
+            <td>
+                <div>
+                    <table id="file-list" class="list-table"><tr><td>文件ID</td><td>文件名称</td><td>文件大小</td><td>修改时间</td></tr></table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<button onclick="load()">刷新文件</button>
 </body>
 </html>

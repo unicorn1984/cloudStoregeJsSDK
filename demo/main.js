@@ -8,6 +8,16 @@ function login(){
 
 }
 
+function load(){
+    var list = servyouCloud.list();
+    $('#file-list').html('');
+    for(var i=0;i<list.length;i++){
+        var item = list[i];
+         var tr = $('<tr><td>'+i+'</td><td>'+item.id+'</td><td>'+item.name+'</td><td>'+item.fileSize+'</td><td>'+item.modifyTime+'</td></tr>');
+        $('#file-list').append(tr);
+    }
+}
+
 
 
 $(function() {
@@ -18,6 +28,7 @@ $(function() {
         password:'123',
         domain:'http://localhost:8080/sfs/',
         token_url:'sfs/login',
+        list_url:'sfs/listSubDirtAndFile',
 
         //upload
         runtimes: 'html5,flash,html4',
@@ -48,6 +59,6 @@ $(function() {
     window.servyouCloud = new ServyouCloudJsSDK(globalConfig);
     var uploader = servyouCloud.uploader();
 
-
+   // alert(decodeURIComponent("%E7%9B%B8%E5%90%8C%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%96%87%E4%BB%B6%E5%B7%B2%E7%BB%8F%E5%AD%98%E5%9C%A8"));
 
 });

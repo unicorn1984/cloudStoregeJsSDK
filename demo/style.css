@@ -1,0 +1,14 @@
+body{
+    font-size: 12px;
+
+}
+.list-table
+{
+    border-collapse: collapse;
+    border: none;
+    width:100%;
+}
+.list-table td
+{
+    border: solid #000 1px;
+}

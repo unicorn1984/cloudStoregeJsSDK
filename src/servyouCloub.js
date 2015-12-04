@@ -81,11 +81,9 @@ ServyouCloudJsSDK.prototype = {
             var auto_start = up.getOption && up.getOption('auto_start');
             auto_start = auto_start || (up.settings && up.settings.auto_start);
             if (auto_start) {
-                plupload.each(files, function (i, file) {
                     up.start();
-                });
             }
-            up.refresh(); // Reposition Flash/Silverlight
+
         });
         uploader.bind('BeforeUpload', function (up, file) {
             if (!that.token)
@@ -102,6 +100,36 @@ ServyouCloudJsSDK.prototype = {
 
 
         return uploader;
+    },
+    /**
+     * 获取文件夹和文件列表
+     */
+    list:function(option){
+        if (!this.config.domain) {
+            throw 'uptoken_url or domain is required!';
+        }
+        if (!this.token)
+            throw 'token is required!';
+
+        var that = this;
+        var returnList;
+        $.ajax({
+            url: this.config.domain + this.config.list_url,
+            data: {requestId: 'sfs/listSubDirtAndFile', userId: that.config.userId, token: that.token},
+            method: 'POST',
+            async:false,
+                success: function (data, textStatus, jqXHR) {
+                if (data === "") {
+                    return;
+                }
+                data = that.parseJSON(data);
+                returnList = data;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        })
+        return returnList;
     }
 }
 
