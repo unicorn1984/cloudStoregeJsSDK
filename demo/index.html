@@ -3,57 +3,100 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>ServyouCloud</title>
-    <link rel="stylesheet" href="lib/highlight/highlight.css">
+    <link rel="stylesheet" href="lib/bootstrap-3.3.6-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/ztree/zTreeStyle.css">
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/ztree/jquery.ztree.all-3.5.min.js"></script>
     <script type="text/javascript" src="lib/plupload/plupload.full.min.js"></script>
     <script type="text/javascript" src="lib/plupload/i18n/zh_CN.js"></script>
     <script type="text/javascript" src="../src/servyouCloub.js"></script>
     <script type="text/javascript" src="main.js"></script>
 </head>
 <body>
-<fieldset>
-    <legend>权限验证</legend>
-    <input type="text" name="admin" value="admin"/><input type="text" name="password" value="123">
-    <button onclick="login()">登陆</button>
-    <br> <br>
+<div class="body-wrapper">
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#loginModal">
+        <span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>权限验证
+    </button>
 
-    <div id="token-area" style="display: none;"><span style="font-weight: bold;">授权成功，token为:</span><span
+
+    <div id="token-area" style="display: none;"><span style="font-weight: bold;">授权成功，用户信息:</span><span
             id="login-info"></span></div>
-</fieldset>
-<br><br>
-<fieldset>
-    <legend>文件上传</legend>
+
+    <br><br>
+
+
     <div id="container">
-        <a class="btn btn-default btn-lg " id="pickfiles" href="#">
+        <a class="btn btn-default btn-sm" id="pickfiles" href="#">
             <i class="glyphicon glyphicon-plus"></i>
             <span>选择文件</span>
         </a>
 
         <div id="filequeue">
-            <ul>
+            <table  width="100%">
 
-            </ul>
+            </table>
         </div>
         <span id="console"></span>
     </div>
-</fieldset>
-<br><br>
-<fieldset>
-    <legend>文件信息</legend>
-    <table width="100%">
-        <tr>
-            <td width="5%">
-                <div></div>
-            </td>
-            <td>
-                <div>
-                    <table id="file-list" class="list-table"><tr><td>文件ID</td><td>文件名称</td><td>文件大小</td><td>修改时间</td><td>url</td><td>类型</td></tr></table>
+
+    <br><br>
+    <button type="button" class="btn btn-primary btn-sm" onclick="pageCT.load()">
+        <span class="glyphicon glyphicon glyphicon-file" aria-hidden="true"></span>刷新文件
+    </button>
+
+
+    <h3>文件信息</h3>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div id="folder-tree" class="ztree"></div>
+            </div>
+            <div class="col-md-10">
+                <table id="file-list" class="table .table-bordered">
+                    <tr>
+                        <td>文件ID</td>
+                        <td>文件名称</td>
+                        <td>文件大小</td>
+                        <td>修改时间</td>
+                        <td>url</td>
+                        <td>类型</td>
+                        <td>操作</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                 </div>
-            </td>
-        </tr>
-    </table>
-</fieldset>
-<button onclick="load()">刷新文件</button>
+                <div class="modal-body">
+                    <div class="form-group has-success">
+                        <label for="username">UserName</label>
+                        <input type="text" class="form-control" id="username" value="admin"/>
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="password">Password</label>
+                        <input type="text" class="form-control" id="password" value="123">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="pageCT.login()">登陆</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

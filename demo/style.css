@@ -2,13 +2,13 @@ body{
     font-size: 12px;
 
 }
-.list-table
-{
-    border-collapse: collapse;
-    border: none;
-    width:100%;
+.body-wrapper{
+    padding: 10px 10px;
 }
-.list-table td
-{
-    border: solid #000 1px;
+
+.progress{
+    margin-bottom:0px;
+}
+#filequeue table tr{
+    height: 40px;
 }
