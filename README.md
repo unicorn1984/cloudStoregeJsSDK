@@ -17,9 +17,9 @@ ServyouCloud JavaScript SDK 使用指南
 
 
 
-> -权限验证
-<i class="icon-file"></i>文件操作（上传，下载，重命名，删除）
-<i class="icon-folder-open"></i>文件夹（新增，删除，重命名）.
+> - 权限验证
+> - 文件操作（上传，下载，重命名，删除）
+> - 文件夹（新增，删除，重命名）.
 
 
 #### <i class="icon-file"></i> Create a document
