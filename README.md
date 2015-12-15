@@ -42,7 +42,7 @@ ServyouCloud JavaScript SDK 使用指南
 
 3、引入servyouCloud.js
 
-    获取SDK源码 git clone git@github.com:qiniupd/qiniu-js-sdk.git，qiniu.js位于src目录内
+    获取SDK源码 git clone git@github.com:/unicorn1984/cloudStoregeJsSDK.git，servyouCloud.js位于src目录内
 4、初始化
 ```
 var globalConfig = {
