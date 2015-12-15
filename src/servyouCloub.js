@@ -153,6 +153,7 @@ ServyouCloudJsSDK.prototype = {
             async: false
         }).done(function (data, textStatus, jqXHR) {
             if (data === "") {
+                success([]);
                 return;
             }
             data = that.parseJSON(data);
@@ -170,7 +171,7 @@ ServyouCloudJsSDK.prototype = {
         url = url + data;
         window.open(url);
     },
-    deleteFile: function (option, success, error, async) {
+    removeFile: function (option, success, error, async) {
         var that = this;
         this.checkEntrance();
         if (async === undefined)
@@ -189,21 +190,21 @@ ServyouCloudJsSDK.prototype = {
             method: 'POST',
             async: false
         }).done(function (data, textStatus, jqXHR) {
-            var resultCode = that.getResponseHeaderValue(jqXHR.responseHeaders, "resultCode");
+            var resultCode = jqXHR.getResponseHeader("resultCode");
             if (resultCode === '00000000') {
                 success();
             } else {
-                var errorMsg = that.getResponseHeaderValue(jqXHR.responseHeaders, "errorMsg")
+                var errorMsg = jqXHR.getResponseHeader("errorMsg")
                 errorMsg = decodeURIComponent(errorMsg);
                 error(errorMsg);
             }
 
         }).error(function (jqXHR, textStatus, errorThrown) {
-            error();
+            error(textStatus);
         })
 
     },
-    rename: function (fileId, newFileName, success, error, async) {
+    renameFile: function (option ,success, error, async) {
         this.checkEntrance();
         if (async === undefined)
             async = true;
@@ -212,27 +213,31 @@ ServyouCloudJsSDK.prototype = {
             requestId: 'sfs/renameFile',
             token: this.token,
             userId: this.config.userId,
-            fileId: fileId,
-            newFileName: newFileName
+            fileId: option.fileId,
+            newFileName: option.newFileName
         };
         $.ajax({
             url: url,
             data: data,
             method: 'POST',
-            async: false,
-            success: function (data, textStatus, jqXHR) {
-                if (data === "") {
-                    return;
+            async: false
+        }).
+            done(function (data, textStatus, jqXHR) {
+                var resultCode = jqXHR.getResponseHeader("resultCode");
+                if (resultCode === '00000000') {
+                    success();
+                } else {
+                    var errorMsg = jqXHR.getResponseHeader("errorMsg")
+                    errorMsg = decodeURIComponent(errorMsg);
+                    error(errorMsg);
                 }
-                data = that.parseJSON(data);
-                returnList = data;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
+            }).
+            fail(function (jqXHR, textStatus, errorThrown) {
+                error(textStatus);
+            })
 
-            }
-        })
     },
-    addDirectory: function (option, success, error, async) {
+    createDirectory: function (option, success, error, async) {
         this.checkEntrance();
         if (async === undefined)
             async = true;
@@ -248,20 +253,24 @@ ServyouCloudJsSDK.prototype = {
             url: url,
             data: data,
             method: 'POST',
-            async: false,
-            success: function (data, textStatus, jqXHR) {
-                if (data === "") {
-                    return;
+            async: false
+        }).
+            done(function (data, textStatus, jqXHR) {
+                var resultCode = jqXHR.getResponseHeader("resultCode");
+                if (resultCode === '00000000') {
+                    success(jqXHR.getResponseHeader("directoryId"));
+                } else {
+                    var errorMsg = jqXHR.getResponseHeader("errorMsg")
+                    errorMsg = decodeURIComponent(errorMsg);
+                    error(errorMsg);
                 }
-                data = that.parseJSON(data);
-                returnList = data;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
+            }).
+            fail(function (jqXHR, textStatus, errorThrown) {
+                error(textStatus);
+            })
 
-            }
-        })
     },
-    deleteDirectory: function (option, success, error, async) {
+    removeDirectory: function (option, success, error, async) {
         this.checkEntrance();
         if (async === undefined)
             async = true;
@@ -277,18 +286,20 @@ ServyouCloudJsSDK.prototype = {
             url: url,
             data: data,
             method: 'POST',
-            async: false,
-            success: function (data, textStatus, jqXHR) {
-                if (data === "") {
-                    return;
-                }
-                data = that.parseJSON(data);
-                returnList = data;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-
+            async: false
+        }).done(function (data, textStatus, jqXHR) {
+            var resultCode = jqXHR.getResponseHeader("resultCode");
+            if (resultCode === '00000000') {
+                success();
+            } else {
+                var errorMsg = jqXHR.getResponseHeader("errorMsg")
+                errorMsg = decodeURIComponent(errorMsg);
+                error(errorMsg);
             }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            error(textStatus);
         })
+
     },
     renameDirectory: function (option, success, error, async) {
         this.checkEntrance();
@@ -306,18 +317,20 @@ ServyouCloudJsSDK.prototype = {
             url: url,
             data: data,
             method: 'POST',
-            async: false,
-            success: function (data, textStatus, jqXHR) {
-                if (data === "") {
-                    return;
-                }
-                data = that.parseJSON(data);
-                returnList = data;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-
+            async: false
+        }).done(function (data, textStatus, jqXHR) {
+            var resultCode = jqXHR.getResponseHeader("resultCode");
+            if (resultCode === '00000000') {
+                success();
+            } else {
+                var errorMsg = jqXHR.getResponseHeader("errorMsg")
+                errorMsg = decodeURIComponent(errorMsg);
+                error(errorMsg);
             }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            error(textStatus);
         })
+
     },
     /**
      * 判断入口条件是否符合
