@@ -30,17 +30,72 @@ ServyouCloud JavaScript SDK 使用指南
     
 **安装和运行**
 
-引入Plupload
+1、引入Plupload
 
     Plupload下载，建议 2.1.1 及以上版本
 
     引入plupload.full.min.js（产品环境）或 引入plupload.dev.js和moxie.js（开发调试）
     
-引入jQuery.js
+2、引入jQuery.js
 
     建议1.6以上版本
 
-引入servyouCloud.js
+3、引入servyouCloud.js
 
     获取SDK源码 git clone git@github.com:qiniupd/qiniu-js-sdk.git，qiniu.js位于src目录内
+4、初始化
+```
+var globalConfig = {
+            userId: 'admin',
+            password: '123',
+            domain: 'http://192.168.60.16:8080/sfs/',
+            //upload
+            runtimes: 'html5,flash,html4',
+            browse_button: 'pickfiles',
+            max_file_size: '100mb',
+            flash_swf_url: 'lib/plupload/Moxie.swf',
+
+            upload_events: {
+                PostInit: function () {
+                    $('#filequeue ul').html('');
+                },
+
+                FilesAdded: function (up, files) {
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        $('#filequeue table').append('<tr><td width="20%">' + file.name + '</td><td  width="40%"><div id=progress_' + file.id + ' class="progress"><div class="progress-bar progress-bar-success" role="progressbar"></div></div></td><td class="red" id="error_' + file.id + '"></td></li>');
+                        up.start();
+                    }
+
+                },
+
+                UploadProgress: function (up, file) {
+                    $('#progress_' + file.id + " .progress-bar").width(file.percent + '%').html('complete ' + file.percent + '%');
+                },
+
+
+                BeforeUpload: function (up, file) {
+                    up.setOption({
+                        'multipart_params': {
+                            directoryId: window.pageCT.selectedFolderId
+
+                        }
+                    });
+                },
+                FileUploaded: function (up, file, response) {
+                    $('#state_' + file.id).html("上传完毕！");
+                },
+                Error: function (up, err) {
+                    $('#error_' + err.file.id).html("Error：[" + err.code + "] " + err.message);
+                }
+
+            }
+
+        }
+
+
+        window.servyouCloud = new ServyouCloudJsSDK(globalConfig);
+        var uploader = servyouCloud.uploader();
+```
+    
 
